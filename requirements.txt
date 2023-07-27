@@ -1,0 +1,4 @@
+eyes-robotframework
+robotframework
+robotframework-seleniumlibrary
+selenium

@@ -1,0 +1,16 @@
+######################################################
+#####          CONFIDENTIAL CONFIGURATIONS       #####
+######################################################
+# The sensitive info in the test cases will be hidden in log
+--removekeywords  tag:sensitive
+
+######################################################
+#####      EXECUTION SPECIFIC CONFIGURATIONS     #####
+######################################################
+
+# To fill the results into Zephyr Scale please input the <projectKey>:<testCycleKey>
+# --listener ./listener/ZephyrListener.py:<projectKey>:<testCycleKey>
+--listener ./resources/ZephyrListener.py:WD:WD-R2
+
+--outputdir ./results
+./test_cases/visualize_test_webpage.robot
