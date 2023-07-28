@@ -1,46 +1,34 @@
 *** Settings ***
-Library     Browser    timeout=20s
-Library     DocTest.VisualTest
-Library     OperatingSystem
+Documentation    Visualize Test For All The Specific Pages
 
+Resource    ${EXECDIR}/resources/keywords/commons.robot
+
+Suite Setup       Setup
+Suite Teardown    Teardown
+
+*** Variables ***
+
+${counter}      0
 *** Test Cases ***
-[WD-T5] - Compare Elements Of The Login Page And Homepage
-    [Documentation]     This test case check the visualize of all elements of the Login and Homepage
-    [Tags]    regression    smoke    sanity
-    New Browser    browser=chromium    headless=True
-    New Page    url=https://the-internet.herokuapp.com/login
-    Compare All Elements    Login
-    Fill Text    //input[@name='username']    tomsmith
-    Fill Text    //input[@name='password']    SuperSecretPassword!
-    Click    button >> text=Login
-    Get Text    .flash    *=    You logged into a secure area!
-    ${pagename}    Set Variable    Login_Successful
-    Compare All Elements    LoginSuccessful
+[WD-1] - Verify Fullpage UI Of The Web App Display Acutually
+    [Documentation]    compare the actual UI display to the BASE image, both of images should have the same dimension.
+    [Tags]    regression
+    New Page    https://www.epochconverter.com
+    ${pageTitle}      Get Title
+    ${actualImage}    Set Variable    actualDisplay_${counter}.png
+    Take Screenshot   ${EXECDIR}/outputs/actual_images/${actualImage}   fullPage=${True}
+    Compare Images    ${EXECDIR}/resources/data/reference/base.png    ${EXECDIR}/outputs/actual_images/${actualImage}
+    # Should Be Equal As Strings    ${pageTitle}    Epoch Converter - Unix Timestamp Converter
+    [Teardown]    Clear Images After Running     ${EXECDIR}/actual_images
 
+[WD-2] - Verify Only The Crop UI Of The Web App Display Acutually
+    [Documentation]    compare the actual UI display which is cropped to the BASE image, 
+    ...    both of images should have been the same cropped dimension.
+    [Tags]    regression
+    New Page    https://www.epochconverter.com
+    ${pageTitle}      Get Title
+    ${actualImage}    Set Variable    droppedImage_${counter}.png
+    Take Screenshot   ${EXECDIR}/outputs/actual_images/${actualImage}   crop={'x': 1, 'y': 1, 'width': 300, 'height': 350}
+    # Crop Image        ${EXECDIR}/resources/data/reference/base.png    1    350    300    350
 
-*** Keywords ***
-Compare All Elements
-    [Documentation]    This keyword is used to verify all elements of the specific keywords
-    ...   The input Agurment is the endpoint of the page. For exmple: Enpoint is login for the https://the-internet.herokuapp.com/login
-    [Arguments]    ${pagename}
-    ${elements}    Get Elements    input, button, label, div, h1, h2, h3, h4
-    FOR    ${element}    IN    @{elements}
-        Log    ${element}
-        ${nodeType}    Evaluate JavaScript   ${element}    (elem) => elem.getAttribute("type")    
-        ${nodeName}    Evaluate JavaScript   ${element}    (elem) => elem.getAttribute("name")
-        ${className}   Evaluate JavaScript   ${element}    (elem) => elem.getAttribute("class")
-        ${for}         Evaluate JavaScript   ${element}    (elem) => elem.getAttribute("for")
-        ${id}    Get Property    ${element}    id
-        ${reference_screenshot_exists}    Run Keyword And Return Status    File Should Exist
-        ...    ${EXECDIR}/outputs/reference/${pagename}_${nodeType}_${nodeName}_${for}_${id}_${className}.png
-        IF    ${reference_screenshot_exists}
-            Take Screenshot    filename=${EXECDIR}/outputs/actual/${pagename}_${nodeType}_${nodeName}_${for}_${id}_${className}
-            ...    selector=${element}
-            Run Keyword And Ignore Error    Compare Images
-            ...    ${EXECDIR}/outputs/reference/${pagename}_${nodeType}_${nodeName}_${for}_${id}_${className}.png
-            ...    ${EXECDIR}/outputs/actual/${pagename}_${nodeType}_${nodeName}_${for}_${id}_${className}.png    move_tolerance=10
-        ELSE
-            Take Screenshot    filename=${EXECDIR}/outputs/reference/${pagename}_${nodeType}_${nodeName}_${for}_${id}_${className}
-            ...    selector=${element}
-        END
-    END
+    [Teardown]    Clear Images After Running     ${EXECDIR}/actual_images
