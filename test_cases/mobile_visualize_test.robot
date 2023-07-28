@@ -8,6 +8,7 @@ Suite Teardown    Teardown
 
 *** Test Cases ***
 [WD-3] - Mobile Web Test
+    [Tags]    smoke
     ${device}=  Get Device  iPhone X
     New Context  &{device}
     New Page    https://www.epochconverter.com

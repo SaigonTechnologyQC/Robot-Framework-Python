@@ -11,9 +11,9 @@
 # To fill the results into Zephyr Scale please input the <projectKey>:<testCycleKey>
 # --listener ./resources/helpers/ZephyrListener.py:<projectKey>:<testCycleKey>
 #--listener ./resources/helpers/ZephyrListener.py:WD:WD-R3
---listener allure_robotframework:/outputs/allure
+--listener allure_robotframework:/results/allure
 
---include regression smoke
+--include smoke
 --exclude sanity
 
 --outputdir ./results

@@ -12,7 +12,7 @@ ${counter}      0
 *** Test Cases ***
 [WD-1] - Verify Fullpage UI Of The Web App Display Acutually
     [Documentation]    compare the actual UI display to the BASE image, both of images should have the same dimension.
-    [Tags]    regression
+    [Tags]    regression    smoke
     New Page    https://www.epochconverter.com
     ${pageTitle}      Get Title
     ${actualImage}    Set Variable    actualDisplay_${counter}.png
@@ -28,7 +28,6 @@ ${counter}      0
     New Page    https://www.epochconverter.com
     ${pageTitle}      Get Title
     ${actualImage}    Set Variable    droppedImage_${counter}.png
-    Take Screenshot   ${EXECDIR}/outputs/actual_images/${actualImage}   crop={'x': 1, 'y': 1, 'width': 300, 'height': 350}
+    Take Screenshot   ${EXECDIR}/outputs/actual/${actualImage}   crop={'x': 1, 'y': 1, 'width': 300, 'height': 350}
     # Crop Image        ${EXECDIR}/resources/data/reference/base.png    1    350    300    350
-
     [Teardown]    Clear Images After Running     ${EXECDIR}/actual_images
