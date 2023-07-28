@@ -40,3 +40,15 @@ All test cases should be run in the root of the project, also some modules shoul
 Use configuration file when executing tests:
 
 >robot -A configfiles\regression_web.txt
+
+## Using Allure Docker Service For Report
+- Execute Allure Docker Service from this repository
+```sh 
+docker-compose up -d allure allure-ui
+```
+- Verify if Allure API is working. Go to -> http://localhost:5050/allure-docker-service/latest-report
+- Verify if Allure UI is working. Go to -> http://localhost:5252/allure-docker-service-ui/
+
+- Each time you run tests, the Allure report will be updated.
+
+Close all containsers after running: `docker-compose down`

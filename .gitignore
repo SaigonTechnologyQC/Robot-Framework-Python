@@ -1,5 +1,7 @@
 outputs/
+output/allure/
 env/
+move_tolerance=10/
 results/
 __pycache__/
 
