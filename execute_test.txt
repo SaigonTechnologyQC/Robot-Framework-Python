@@ -9,8 +9,9 @@
 ######################################################
 
 # To fill the results into Zephyr Scale please input the <projectKey>:<testCycleKey>
-# --listener ./listener/ZephyrListener.py:<projectKey>:<testCycleKey>
---listener ./resources/ZephyrListener.py:WD:WD-R2
+# --listener ./resources/helpers/ZephyrListener.py:<projectKey>:<testCycleKey>
+--listener allure_robotframework:/allure-results
+#--listener ./resources/helpers/ZephyrListener.py:WD:WD-R3
 
 --outputdir ./results
 ./test_cases/visualize_test_webpage.robot
