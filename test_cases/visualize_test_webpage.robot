@@ -6,7 +6,7 @@ Library     OperatingSystem
 *** Test Cases ***
 [WD-T5] - Compare Elements Of The Login Page And Homepage
     [Documentation]     This test case check the visualize of all elements of the Login and Homepage
-    [Tags]    regression    smoke    sensitive
+    [Tags]    regression    smoke    sanity
     New Browser    browser=chromium    headless=True
     New Page    url=https://the-internet.herokuapp.com/login
     Compare All Elements    Login

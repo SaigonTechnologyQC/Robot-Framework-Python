@@ -13,6 +13,8 @@
 #--listener ./resources/helpers/ZephyrListener.py:WD:WD-R3
 --listener allure_robotframework
 
+--include regression
+--exclude sanity
 
 --outputdir ./results
-./test_cases/visualize_test_webpage.robot
+./test_cases/*.robot
